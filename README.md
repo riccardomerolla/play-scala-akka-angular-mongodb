@@ -33,6 +33,11 @@ Your development environment will require:
 *  SBT / Play see [here]() for installation instructions.
 *  MongoDB see [here]() for installation instructions.
 
+```
+docker pull dockerfile/mongodb
+docker run -d -p 27017:27017 --name mongodb dockerfile/mongodb
+```
+
 Once the prerequisites have been installed, you will be able to execute the following from a terminal.
 
 ```
