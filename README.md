@@ -20,7 +20,7 @@ fronted with Twitter bootstrap CSS framework, because well, im not a web designe
 
 * **Guice** integration for Dependency injection,
   * Special thanks to the typesafehub team for their activator : [Play-Guice](http://www.typesafe.com/activator/template/play-guice)
-
+ssh -T git@github.com
 * **PlayReactiveMongo** gives interaction with MongoDB providing a non-blocking driver as well as some useful additions for handling JSON.
   * Check out their GitHub: [Play-ReactiveMongo](https://github.com/ReactiveMongo/Play-ReactiveMongo)
 

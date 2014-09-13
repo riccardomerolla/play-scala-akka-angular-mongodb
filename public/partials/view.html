@@ -35,7 +35,7 @@
                 <tbody>
                 <tr ng-repeat="usr in uc.users | filter:searchText">
                     <td>
-                        {{ usr.firstName }}
+                       <a ng-href="/#/users/create">{{ usr.firstName }}</a>
                     </td>
                     <td>
                         {{ usr.lastName }}

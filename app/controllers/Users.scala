@@ -80,4 +80,28 @@ class Users extends Controller with MongoController {
     }
   }
 
+  def findUser(firstName: String) = Action.async {
+    val cursor: Cursor[User] = collection.
+      // find
+      find(Json.obj("firstName" -> firstName)).
+
+      // sort them by creation date
+      sort(Json.obj("created" -> -1)).
+      // perform the query and get a cursor of JsObject
+      cursor[User]
+
+    // gather all the JsObjects in a list
+    val futureUsersList: Future[List[User]] = cursor.collect[List]()
+
+    // transform the list into a JsArray
+    val futurePersonsJsonArray: Future[JsArray] = futureUsersList.map { users =>
+      Json.arr(users)
+    }
+    // everything's ok! Let's reply with the array
+    futurePersonsJsonArray.map {
+      users =>
+        Ok(users(0))
+    }
+  }
+
 }
