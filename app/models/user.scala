@@ -1,6 +1,7 @@
 package models
 
 case class User( age: Int,
+                 uuid: String,
                  firstName: String,
                  lastName: String,
                  active: Boolean)

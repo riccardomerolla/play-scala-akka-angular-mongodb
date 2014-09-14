@@ -6,9 +6,10 @@ import scala.concurrent.Future
 import reactivemongo.api.Cursor
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import org.slf4j.{LoggerFactory, Logger}
-import javax.inject.Singleton
+import javax.inject.{Inject, Singleton}
 import play.api.mvc._
 import play.api.libs.json._
+import services.UUIDGenerator
 
 /**
  * The Users controllers encapsulates the Rest endpoints and the interaction with the MongoDB, via ReactiveMongo
@@ -16,7 +17,7 @@ import play.api.libs.json._
  * @see https://github.com/ReactiveMongo/Play-ReactiveMongo
  */
 @Singleton
-class Users extends Controller with MongoController {
+class Users @Inject() (uuidGenerator: UUIDGenerator) extends Controller with MongoController {
 
   private final val logger: Logger = LoggerFactory.getLogger(classOf[Users])
 
@@ -80,13 +81,10 @@ class Users extends Controller with MongoController {
     }
   }
 
-  def findUser(firstName: String) = Action.async {
+  def findUser(uuid: String) = Action.async {
     val cursor: Cursor[User] = collection.
       // find
-      find(Json.obj("firstName" -> firstName)).
-
-      // sort them by creation date
-      sort(Json.obj("created" -> -1)).
+      find(Json.obj("uuid" -> uuid)).
       // perform the query and get a cursor of JsObject
       cursor[User]
 
@@ -94,13 +92,13 @@ class Users extends Controller with MongoController {
     val futureUsersList: Future[List[User]] = cursor.collect[List]()
 
     // transform the list into a JsArray
-    val futurePersonsJsonArray: Future[JsArray] = futureUsersList.map { users =>
-      Json.arr(users)
+    val futurePersonsJsonArray: Future[User] = futureUsersList.map { users =>
+      users.head
     }
     // everything's ok! Let's reply with the array
     futurePersonsJsonArray.map {
-      users =>
-        Ok(users(0))
+      user =>
+        Ok(userFormat.writes(user))
     }
   }
 

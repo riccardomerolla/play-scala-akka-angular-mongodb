@@ -30,12 +30,13 @@
                     <th>LastName</th>
                     <th>Age</th>
                     <th>Active</th>
+                    <th>JSON</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="usr in uc.users | filter:searchText">
                     <td>
-                       <a ng-href="/#/users/create">{{ usr.firstName }}</a>
+                       {{ usr.firstName }}
                     </td>
                     <td>
                         {{ usr.lastName }}
@@ -45,6 +46,9 @@
                     </td>
                     <td>
                         {{ usr.active }}
+                    </td>
+                    <td>
+                        <a href="/user/{{ usr.uuid }}">{}</a>
                     </td>
                 </tr>
                 <tr ng-hide="uc.users.length">

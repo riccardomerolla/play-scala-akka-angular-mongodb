@@ -37,4 +37,20 @@ class UserService
             )
         deferred.promise
 
+    generateUUID: () ->
+        @$log.debug "generate UUID}"
+        deferred = @$q.defer()
+
+        @$http.get("/randomUUID")
+        .success((data, status, headers) =>
+                @$log.info("Successfully retrieve UUID - status #{status}")
+                deferred.resolve(data)
+                @$log.debug "UUID #{data}"
+            )
+        .error((data, status, headers) =>
+                @$log.error("Failed to retrieve UUID - status #{status}")
+                deferred.reject(data);
+            )
+        deferred.promise
+
 servicesModule.service('UserService', UserService)

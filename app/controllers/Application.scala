@@ -26,7 +26,7 @@ class Application @Inject() (uuidGenerator: UUIDGenerator) extends Controller {
 
   implicit val timeout = Timeout(5 seconds)
 
-  lazy val uuidActor : ActorRef = Akka.system.actorOf(Props(classOf[UUIDActor]))
+  lazy val uuidActor : ActorRef = Akka.system.actorOf(Props(new UUIDActor(uuidGenerator)))
 
   def index = Action {
     logger.info("Serving index page...")
