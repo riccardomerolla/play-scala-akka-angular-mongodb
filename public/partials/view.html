@@ -3,9 +3,9 @@
     <div class="row" ng-controller="UserCtrl as uc">
         &NonBreakingSpace;
         <div class="jumbotron">
-            <h2>A Modern Web Template</h2>
+            <h2>Modern Web Template</h2>
 
-            <p class="pull-right">... a UI created using AngularJS and Bootstrap</p>
+            <p class="pull-right">Scala, Akka, Play, MongoDB, AngularJS and Bootstrap</p>
         </div>
 
 
@@ -30,7 +30,7 @@
                     <th>LastName</th>
                     <th>Age</th>
                     <th>Active</th>
-                    <th>JSON</th>
+                    <th>Detail</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,7 +48,7 @@
                         {{ usr.active }}
                     </td>
                     <td>
-                        <a href="/user/{{ usr.uuid }}">{}</a>
+                        <a ng-href="/#/user/detail/{{usr.uuid}}" class="btn btn-primary" id="btn_user_detail">Detail</a>
                     </td>
                 </tr>
                 <tr ng-hide="uc.users.length">

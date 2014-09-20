@@ -1,7 +1,7 @@
 
 class UserCtrl
 
-    constructor: (@$log, @UserService) ->
+    constructor: (@$log, @$location, @UserService) ->
         @$log.debug "constructing UserController"
         @users = []
         @getAllUsers()
@@ -18,6 +18,5 @@ class UserCtrl
             (error) =>
                 @$log.error "Unable to get Users: #{error}"
             )
-
 
 controllersModule.controller('UserCtrl', UserCtrl)

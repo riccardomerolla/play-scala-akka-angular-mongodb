@@ -1,7 +1,7 @@
 
 class CreateUserCtrl
 
-    constructor: (@$log, @$location,  @UserService) ->
+    constructor: (@$log, @$location, @UserService) ->
         @$log.debug "constructing CreateUserController"
         @user = {}
 
