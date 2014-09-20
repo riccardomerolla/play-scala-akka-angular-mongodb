@@ -2,6 +2,9 @@
     <div ng-controller="UserDetailCtrl as udc">
         <h1>User Detail</h1>
 
+        <form id="UpdateUserForm" name="UpdateUserForm" class="form-horizontal" role="form"
+              ng-submit="udc.updateUser()">
+
             <legend class="sm-col-12">Basic Information</legend>
 
             <div class="form-group">
@@ -37,8 +40,13 @@
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-8 text-right">
                     <a ng-href="/#/" id="btn_back" class="btn btn-warning">Back</a>
+
+                    <button type="submit" class="btn btn-success" id="btn_create">Update User</button>
                 </div>
             </div>
+
+
+        </form>
 
     </div>
 </div>

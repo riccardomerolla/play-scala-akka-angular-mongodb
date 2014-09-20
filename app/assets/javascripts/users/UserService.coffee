@@ -52,6 +52,21 @@ class UserService
             )
         deferred.promise
 
+    updateUser: (user) ->
+      @$log.debug "updateUser #{angular.toJson(user, true)}"
+      deferred = @$q.defer()
+
+      @$http.post('/user/update', user)
+      .success((data, status, headers) =>
+        @$log.info("Successfully update User - status #{status}")
+        deferred.resolve(data)
+      )
+      .error((data, status, headers) =>
+        @$log.error("Failed to update user - status #{status}")
+        deferred.reject(data);
+      )
+      deferred.promise
+
     generateUUID: () ->
         @$log.debug "generate UUID}"
         deferred = @$q.defer()

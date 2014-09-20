@@ -19,5 +19,18 @@ class UserDetailCtrl
                 @$log.error "Unable to get User: #{error}"
             )
 
+    updateUser: () ->
+        @$log.debug "updateUser()"
+        @UserService.updateUser(@user)
+        .then(
+            (data) =>
+                @$log.debug "Promise returned #{data} User"
+                @user = data
+                @$location.path("/")
+            ,
+            (error) =>
+                @$log.error "Unable to update User: #{error}"
+            )
+
 
 controllersModule.controller('UserDetailCtrl', UserDetailCtrl)

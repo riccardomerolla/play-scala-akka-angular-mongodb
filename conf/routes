@@ -11,6 +11,7 @@ GET     /randomUUID                 @controllers.Application.randomUUID
 # User management API
 GET     /users                      @controllers.Users.findUsers
 POST    /user                       @controllers.Users.createUser
+POST    /user/update                @controllers.Users.updateUser
 GET     /user/:uuid                 @controllers.Users.findUser(uuid)
 
 # Map static resources from the /public folder to the /assets URL path

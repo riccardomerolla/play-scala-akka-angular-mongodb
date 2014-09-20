@@ -11,6 +11,7 @@ import play.api.mvc._
 import play.api.libs.json._
 import services.UUIDGenerator
 
+
 /**
  * The Users controllers encapsulates the Rest endpoints and the interaction with the MongoDB, via ReactiveMongo
  * play plugin. This provides a non-blocking driver for mongoDB as well as some useful additions for handling JSon.
@@ -53,6 +54,26 @@ class Users @Inject() (uuidGenerator: UUIDGenerator) extends Controller with Mon
             lastError =>
               logger.debug(s"Successfully inserted with LastError: $lastError")
               Created(s"User Created")
+          }
+      }.getOrElse(Future.successful(BadRequest("invalid json")))
+  }
+
+  def updateUser = Action.async(parse.json) {
+    request =>
+      /*
+       * request.body is a JsValue.
+       * There is an implicit Writes that turns this JsValue as a JsObject,
+       * so you can call insert() with this JsValue.
+       * (insert() takes a JsObject as parameter, or anything that can be
+       * turned into a JsObject using a Writes.)
+       */
+      request.body.validate[User].map {
+        user =>
+          // `user` is an instance of the case class `models.User`
+          collection.update(Json.obj("uuid" -> user.uuid), user).map {
+            lastError =>
+              logger.debug(s"Successfully updated with LastError: $lastError")
+              Created(s"User Updated")
           }
       }.getOrElse(Future.successful(BadRequest("invalid json")))
   }
