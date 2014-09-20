@@ -26,15 +26,18 @@
             <table id="user_list" class="table table-striped">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>FirstName</th>
                     <th>LastName</th>
                     <th>Age</th>
                     <th>Active</th>
-                    <th>Detail</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="usr in uc.users | filter:searchText">
+                    <td>
+                        <a ng-href="/#/user/detail/{{usr.uuid}}" class="btn btn-primary" id="btn_user_detail"><i class="fa fa-pencil fa-fw"></i></a>
+                    </td>
                     <td>
                        {{ usr.firstName }}
                     </td>
@@ -46,9 +49,6 @@
                     </td>
                     <td>
                         {{ usr.active }}
-                    </td>
-                    <td>
-                        <a ng-href="/#/user/detail/{{usr.uuid}}" class="btn btn-primary" id="btn_user_detail">Detail</a>
                     </td>
                 </tr>
                 <tr ng-hide="uc.users.length">
