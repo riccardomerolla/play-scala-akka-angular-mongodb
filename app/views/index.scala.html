@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" media='screen' href='@routes.Assets.at("stylesheets/main.css")'>
+
+    <!-- Add Firebase -->
+    <script src='https://cdn.firebase.com/js/client/1.0.15/firebase.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
 </head>
 <body>
 <div class="container-fluid col-md-10 col-md-offset-1">
@@ -26,8 +30,37 @@
         </div>
     </header>
 
-    <div ng-view></div>
-
+    <div ng-view class="col-md-8"></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        &NonBreakingSpace;
+        <div class="jumbotron">
+            <p class="pull-right">Firebase chat</p>
+        </div>
+        <pre><div id='messagesDiv'></div></pre>
+        <input type='text' class="form-control" id='nameInput' placeholder='Name'>
+        <input type='text' class="form-control" id='messageInput' placeholder='Message'>
+        <script>
+            var myDataRef = new Firebase('https://rqfn2sxxf6g.firebaseio-demo.com/');
+            $('#messageInput').keypress(function (e) {
+                if (e.keyCode == 13) {
+                    var name = $('#nameInput').val();
+                    var text = $('#messageInput').val();
+                    myDataRef.push({name: name, text: text});
+                    $('#messageInput').val('');
+                }
+            });
+            myDataRef.on('child_added', function(snapshot) {
+                var message = snapshot.val();
+                displayChatMessage(message.name, message.text);
+            });
+            function displayChatMessage(name, text) {
+                $('<div/>').text(text).prepend($('<b/>').text(name+': ')).appendTo($('#messagesDiv'));
+                $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+            };
+        </script>
+    </div>
+    <div class="row"></div>
     <div>
         <footer>
             <hr/>
