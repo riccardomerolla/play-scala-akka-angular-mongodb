@@ -10,7 +10,7 @@ import services.UUIDGenerator
  */
 class UUIDActor (uuidGenerator: UUIDGenerator) extends Actor {
 
-  private final val logger: Logger = LoggerFactory.getLogger(classOf[Application])
+  private final val logger: Logger = LoggerFactory.getLogger(classOf[App])
 
   def receive = {
     case Some =>

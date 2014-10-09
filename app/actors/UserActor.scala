@@ -11,7 +11,7 @@ import play.api.libs.iteratee.Concurrent.Channel
  */
 class UserActor (channel: Channel[JsValue]) extends Actor {
 
-  private final val logger: Logger = LoggerFactory.getLogger(classOf[Application])
+  private final val logger: Logger = LoggerFactory.getLogger(classOf[App])
 
   def receive = {
     case message: JsValue =>
