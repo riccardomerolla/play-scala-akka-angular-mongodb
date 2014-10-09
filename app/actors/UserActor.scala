@@ -4,6 +4,7 @@ import akka.actor.Actor
 import org.slf4j.{LoggerFactory, Logger}
 import play.api.libs.json.JsValue
 import play.api.libs.iteratee.Concurrent.Channel
+import controllers.Application
 
 /**
  * @author Riccardo Merolla
@@ -11,7 +12,7 @@ import play.api.libs.iteratee.Concurrent.Channel
  */
 class UserActor (channel: Channel[JsValue]) extends Actor {
 
-  private final val logger: Logger = LoggerFactory.getLogger(classOf[App])
+  private final val logger: Logger = LoggerFactory.getLogger(classOf[Application])
 
   def receive = {
     case message: JsValue =>
