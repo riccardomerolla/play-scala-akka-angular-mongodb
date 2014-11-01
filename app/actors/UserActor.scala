@@ -4,6 +4,7 @@ import akka.actor.Actor
 import org.slf4j.{LoggerFactory, Logger}
 import play.api.libs.json.JsValue
 import play.api.libs.iteratee.Concurrent.Channel
+import controllers.Application
 
 /**
  * @author Riccardo Merolla

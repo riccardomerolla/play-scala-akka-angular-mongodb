@@ -3,6 +3,7 @@ package actors
 import akka.actor.Actor
 import org.slf4j.{Logger, LoggerFactory}
 import services.UUIDGenerator
+import controllers.Application
 
 /**
  * @author Riccardo Merolla

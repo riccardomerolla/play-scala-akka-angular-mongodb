@@ -1,17 +1,20 @@
 package controllers
 
-import javax.inject.{Singleton, Inject}
+import javax.inject.{Inject, Singleton}
+
 import actors.{UUIDActor, UserActor}
 import akka.actor.{ActorRef, Props}
-import play.api.libs.iteratee.{Iteratee, Concurrent}
-import play.api.libs.json.JsValue
-import play.libs.Akka
-import services.UUIDGenerator
-import org.slf4j.{LoggerFactory, Logger}
-import play.api.mvc._
 import akka.pattern.ask
 import akka.util.Timeout
+import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.concurrent.Execution.Implicits._
+import play.api.libs.iteratee.{Concurrent, Iteratee}
+import play.api.libs.json.JsValue
+import play.api.mvc._
+import play.libs.Akka
+import services.UUIDGenerator
+import controllers.security.Security
+
 import scala.concurrent.duration._
 
 /**
@@ -20,9 +23,12 @@ import scala.concurrent.duration._
  * @param uuidGenerator the UUID generator service we wish to receive.
  */
 @Singleton
-class Application @Inject() (uuidGenerator: UUIDGenerator) extends Controller {
+class Application @Inject() (uuidGenerator: UUIDGenerator) extends Controller with Security {
 
   private final val logger: Logger = LoggerFactory.getLogger(classOf[Application])
+
+  lazy val CacheExpiration =
+    app.configuration.getInt("cache.expiration").getOrElse(60 /*seconds*/ * 2 /* minutes */)
 
   implicit val timeout = Timeout(5 seconds)
 
