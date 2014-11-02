@@ -58,9 +58,7 @@
                 </tr>
                 </tbody>
             </table>
-            <div data-pagination="" data-num-pages="uc.numPages"
-                 data-current-page="uc.currentPage" data-max-size="uc.maxSize"
-                 data-boundary-links="true"></div>
+            <pagination total-items="uc.bigTotalItems" ng-model="uc.users" max-size="uc.maxSize" class="pagination-sm" boundary-links="true"></pagination>
 
             <hr>
             <h4>Debug:</h4>

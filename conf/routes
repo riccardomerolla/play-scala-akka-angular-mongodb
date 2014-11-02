@@ -10,6 +10,8 @@ GET     /randomUUID                 @controllers.Application.randomUUID
 
 # User management API
 GET     /users                      @controllers.Users.findUsers
+GET     /users/count                @controllers.Users.countUsers
+GET     /users/:page/:perPage       @controllers.Users.list(page :Int, perPage :Int)
 POST    /user                       @controllers.Users.createUser
 POST    /user/update                @controllers.Users.updateUser
 GET     /user/:uuid                 @controllers.Users.findUser(uuid)

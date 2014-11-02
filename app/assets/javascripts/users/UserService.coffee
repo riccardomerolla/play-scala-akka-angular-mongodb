@@ -22,6 +22,36 @@ class UserService
             )
         deferred.promise
 
+    listUsers: (page, perPage) ->
+            @$log.debug "listUsers()"
+            deferred = @$q.defer()
+
+            @$http.get("/users/#{page}/#{perPage}")
+            .success((data, status, headers) =>
+                    @$log.info("Successfully listed Users - status #{status}")
+                    deferred.resolve(data)
+                )
+            .error((data, status, headers) =>
+                    @$log.error("Failed to list Users - status #{status}")
+                    deferred.reject(data);
+                )
+            deferred.promise
+
+    countUsers: () ->
+            @$log.debug "countUsers()"
+            deferred = @$q.defer()
+
+            @$http.get("/users/count")
+            .success((data, status, headers) =>
+                    @$log.info("Successfully counted Users - status #{status}")
+                    deferred.resolve(data)
+                )
+            .error((data, status, headers) =>
+                    @$log.error("Failed to count Users - status #{status}")
+                    deferred.reject(data);
+                )
+            deferred.promise
+
     getUser: (uuid) ->
         @$log.debug "getUser()"
         deferred = @$q.defer()
