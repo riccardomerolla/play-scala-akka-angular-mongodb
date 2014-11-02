@@ -58,7 +58,8 @@
                 </tr>
                 </tbody>
             </table>
-            <pagination total-items="uc.bigTotalItems" ng-model="uc.users" max-size="uc.maxSize" class="pagination-sm" boundary-links="true"></pagination>
+            <pagination boundary-links="true" total-items="uc.bigTotalItems" ng-model="uc.currentPage" class="pagination-sm" items-per-page="uc.numPerPage"
+                        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
 
             <hr>
             <h4>Debug:</h4>

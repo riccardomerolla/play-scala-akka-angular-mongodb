@@ -7,7 +7,7 @@ class UserService
     constructor: (@$log, @$http, @$q) ->
         @$log.debug "constructing UserService"
 
-    listUsers: () ->
+    listAllUsers: () ->
         @$log.debug "listUsers()"
         deferred = @$q.defer()
 
