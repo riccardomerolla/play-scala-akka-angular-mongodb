@@ -98,7 +98,7 @@ class UserService
       deferred.promise
 
     generateUUID: () ->
-        @$log.debug "generate UUID}"
+        @$log.debug "generate UUID"
         deferred = @$q.defer()
 
         @$http.get("/randomUUID")

@@ -19,7 +19,7 @@ angular.module('myApp.routeConfig', ['ngRoute'])
                 templateUrl: '/assets/partials/view.html'
             })
             .when('/users/create', {
-                templateUrl: '/assets/partials/create.html'
+                templateUrl: '/assets/partials/detail.html'
             })
             .when('/user/detail/:uuid', {
                 templateUrl: '/assets/partials/detail.html'
