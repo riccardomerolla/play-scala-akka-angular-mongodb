@@ -3,12 +3,13 @@ class UserCtrl
 
     constructor: (@$log, @$location, @UserService) ->
         @$log.debug "constructing UserController"
-        @currentPage = 0
-        @numPerPage = 1
+        @currentPage = 1
+        @numPerPage = 10
         @maxSize = 5
         @bigTotalItems = 0
         @users = []
         @getAllUsers()
+        @pageChanged()
 
     getAllUsers: () ->
         @$log.debug "getAllUsers()"
@@ -24,7 +25,7 @@ class UserCtrl
                 @bigTotalItems = 0
             )
 
-        @UserService.listUsers(@currentPage, @numPerPage)
+        @UserService.listUsers(@currentPage - 1, @numPerPage)
         .then(
             (data) =>
                 @$log.debug "Promise returned #{data.length} Users"
@@ -33,5 +34,10 @@ class UserCtrl
             (error) =>
                 @$log.error "Unable to get Users: #{error}"
             )
+
+    pageChanged: () ->
+        @$log.debug "Page changed to: #{@currentPage}"
+
+        @getAllUsers()
 
 controllersModule.controller('UserCtrl', UserCtrl)

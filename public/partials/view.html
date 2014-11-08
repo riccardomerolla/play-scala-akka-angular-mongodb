@@ -58,9 +58,13 @@
                 </tr>
                 </tbody>
             </table>
-            <pagination boundary-links="true" total-items="uc.bigTotalItems" ng-model="uc.currentPage" class="pagination-sm" items-per-page="uc.numPerPage"
-                        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-
+            <div class="row text-center">
+                <pagination ng-change="uc.pageChanged()" boundary-links="true" total-items="uc.bigTotalItems" ng-model="uc.currentPage"
+                        class="pagination-sm" items-per-page="uc.numPerPage"
+                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+        <div class="row">
             <hr>
             <h4>Debug:</h4>
             <pre>{{ uc.users | json }}</pre>
