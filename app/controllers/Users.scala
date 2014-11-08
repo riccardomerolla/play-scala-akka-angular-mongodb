@@ -162,4 +162,11 @@ class Users @Inject() (uuidGenerator: UUIDGenerator) extends Controller with Mon
     }
   }
 
+  def deleteUser(uuid: String) = Action.async {
+    val futureRemove = collection.remove(Json.obj("uuid" -> uuid))
+
+    futureRemove.map {
+      result => Ok(uuid)
+    }
+  }
 }

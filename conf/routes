@@ -15,6 +15,7 @@ GET     /users/:page/:perPage       @controllers.Users.list(page :Int, perPage :
 POST    /user                       @controllers.Users.createUser
 POST    /user/update                @controllers.Users.updateUser
 GET     /user/:uuid                 @controllers.Users.findUser(uuid)
+DELETE  /user/:uuid                 @controllers.Users.deleteUser(uuid)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

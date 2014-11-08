@@ -67,6 +67,21 @@ class UserService
             )
         deferred.promise
 
+    deleteUser: (uuid) ->
+        @$log.debug "deleteUser()"
+        deferred = @$q.defer()
+
+        @$http.delete("/user/#{uuid}")
+        .success((data, status, headers) =>
+          @$log.info("Successfully remove User - status #{status}")
+          deferred.resolve(data)
+        )
+        .error((data, status, headers) =>
+          @$log.error("Failed to remove User - status #{status}")
+          deferred.reject(data);
+        )
+        deferred.promise
+
     createUser: (user) ->
         @$log.debug "createUser #{angular.toJson(user, true)}"
         deferred = @$q.defer()

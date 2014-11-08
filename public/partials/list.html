@@ -13,7 +13,7 @@
             <div class="form-group">
                 <h3>
                     Users
-                    <a ng-href="/#/users/create" class="btn btn-primary pull-right" id="btn_user_create">Add User</a>
+                    <a ng-href="/#/users/create" class="btn btn-primary pull-right" id="btn_user_create"><i class="fa fa-user fa-fw"></i> Add User</a>
                 </h3>
                 <hr>
             </div>
@@ -37,7 +37,7 @@
                 <tbody>
                 <tr ng-repeat="usr in uc.users | filter:searchText">
                     <td>
-                        <a ng-href="/#/user/detail/{{usr.uuid}}" class="btn btn-primary" id="btn_user_detail"><i class="fa fa-pencil fa-fw"></i></a>
+                        <a ng-href="/#/user/detail/{{usr.uuid}}" class="btn btn-primary" id="btn_user_detail"><i class="fa fa-pencil-square-o fa-fw"></i></a>
                     </td>
                     <td>
                        {{ usr.firstName }}
@@ -52,7 +52,7 @@
                         {{ usr.active }}
                     </td>
                     <td>
-                        <a class="btn-small btn-danger" href="#">
+                        <a ng-click="uc.deleteUser(usr.uuid)" ng-href="/#/" class="btn-small btn-danger">
                             <i class="fa fa-times fa-fw"></i></a>
                     </td>
                 </tr>

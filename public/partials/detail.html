@@ -47,16 +47,21 @@
 
             <hr>
 
-            <pre>{{ udc.user | json }}</pre>
-
             <div class="form-group">
-                <div class="col-sm-offset-4 col-sm-8 text-right">
-                    <a ng-href="/#/" id="btn_back" class="btn btn-warning">Back</a>
+                <div class="col-sm-4 text-left">
+                    <a ng-href="/#/" id="btn_delete" class="btn btn-danger">
+                        <i class="fa fa-times fa-fw"></i> Delete</a>
+                </div>
+                <div class="col-sm-8 text-right">
+                    <a ng-href="/#/" id="btn_back" class="btn btn-warning"><i class="fa fa-reply fa-fw"></i> Back</a>
 
-                    <button type="submit" class="btn btn-success" id="btn_create">Save User</button>
+                    <button type="submit" class="btn btn-success" id="btn_create"><i class="fa fa-hdd-o fa-fw"></i> Save</button>
                 </div>
             </div>
 
+            <hr>
+
+            <pre>{{ udc.user | json }}</pre>
 
         </form>
 

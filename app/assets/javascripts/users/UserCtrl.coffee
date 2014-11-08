@@ -40,4 +40,17 @@ class UserCtrl
 
         @getAllUsers()
 
+    deleteUser: (uuid) ->
+        @$log.debug "deleteUser(#{uuid})"
+
+        @UserService.deleteUser(uuid)
+        .then(
+            (data) =>
+                @$log.debug "Promise returned #{angular.toJson(data, true)} User"
+                @getAllUsers()
+        ,
+            (error) =>
+                @$log.error "Unable to delete User: #{error}"
+        )
+
 controllersModule.controller('UserCtrl', UserCtrl)
