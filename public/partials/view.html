@@ -31,6 +31,7 @@
                     <th>LastName</th>
                     <th>Age</th>
                     <th>Active</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,6 +50,10 @@
                     </td>
                     <td>
                         {{ usr.active }}
+                    </td>
+                    <td>
+                        <a class="btn-small btn-danger" href="#">
+                            <i class="fa fa-times fa-fw"></i></a>
                     </td>
                 </tr>
                 <tr ng-hide="uc.users.length">
