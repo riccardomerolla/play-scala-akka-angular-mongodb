@@ -1,0 +1,12 @@
+<div>
+    <form name="form" class="form-signin">
+        <h3 class="form-signin-heading">Sign in</h3>
+        <input type="email" class="form-control" ng-model="userform.email" placeholder="Email" required autofocus/>
+        <input type="password" class="form-control" ng-model="userform.password" placeholder="Password" required/>
+        <label class="checkbox">
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" ng-disabled="form.$invalid" type="submit" ng-click="signin()">Sign in</button>
+    </form>
+    <div class="alert alert-danger" ng-show="signinError">Email and/or Password Incorrect</div>
+</div>

@@ -5,17 +5,32 @@
 # ~~~~
 
 # Single endpoint for serving AngularJS
-GET     /                           @controllers.Application.index
-GET     /randomUUID                 @controllers.Application.randomUUID
+GET           /                            @controllers.Application.index
+GET           /randomUUID                  @controllers.Application.randomUUID
 
 # User management API
-GET     /users                      @controllers.Users.findUsers
-GET     /users/count                @controllers.Users.countUsers
-GET     /users/:page/:perPage       @controllers.Users.list(page :Int, perPage :Int)
-POST    /user                       @controllers.Users.createUser
-POST    /user/update                @controllers.Users.updateUser
-GET     /user/:uuid                 @controllers.Users.findUser(uuid)
-DELETE  /user/:uuid                 @controllers.Users.deleteUser(uuid)
+GET           /users                       @controllers.Users.findUsers
+GET           /users/count                 @controllers.Users.countUsers
+GET           /users/:page/:perPage        @controllers.Users.list(page :Int, perPage :Int)
+POST          /user                        @controllers.Users.createUser
+POST          /user/update                 @controllers.Users.updateUser
+GET           /user/:uuid                  @controllers.Users.findUser(uuid)
+DELETE        /user/:uuid                  @controllers.Users.deleteUser(uuid)
+
+# Auth API
+POST          /api/auth/signup             controllers.Auth.signup
+POST          /api/auth/signin             controllers.Auth.signin
+GET           /api/auth/signout            controllers.Auth.signout
+GET           /api/auth/authorize          controllers.Auth.authorize
+
+GET           /api/auth/user/:email        controllers.Auth.exists(email)
+GET           /api/auth/user               controllers.Auth.getUser
+POST          /api/auth/user               controllers.Auth.createUser
+DELETE        /api/auth/user               controllers.Auth.removeUser
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET           /assets/*file                controllers.Assets.at(path="/public", file)
+
+# angular-auth app
+GET          /angular-auth/                controllers.UIAssets.at(path = "/public/angular-auth", file = "index.html")
+GET          /angular-auth/*file           controllers.UIAssets.at(path = "/public/angular-auth", file)

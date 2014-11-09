@@ -1,9 +1,8 @@
 package actors
 
 import akka.actor.Actor
-import org.slf4j.{Logger, LoggerFactory}
+import play.api.Logger
 import services.UUIDGenerator
-import controllers.Application
 
 /**
  * @author Riccardo Merolla
@@ -11,7 +10,7 @@ import controllers.Application
  */
 class UUIDActor (uuidGenerator: UUIDGenerator) extends Actor {
 
-  private final val logger: Logger = LoggerFactory.getLogger(classOf[Application])
+  private final val logger = Logger
 
   def receive = {
     case Some =>

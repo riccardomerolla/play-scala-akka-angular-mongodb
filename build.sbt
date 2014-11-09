@@ -10,6 +10,7 @@ resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositor
 
 libraryDependencies ++= Seq(
   cache,
+  filters,
   "com.google.inject" % "guice" % "3.0",
   "javax.inject" % "javax.inject" % "1",
   "org.reactivemongo" %% "reactivemongo" % "0.10.5.akka23-SNAPSHOT",

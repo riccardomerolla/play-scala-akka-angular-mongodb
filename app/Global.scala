@@ -1,11 +1,13 @@
 import com.google.inject.{Guice, AbstractModule}
 import play.api.GlobalSettings
+import play.api.mvc.WithFilters
+import play.filters.csrf.CSRFFilter
 import services.{SimpleUUIDGenerator, UUIDGenerator}
 
 /**
  * Set up the Guice injector and provide the mechanism for return objects from the dependency graph.
  */
-object Global extends GlobalSettings {
+object Global extends WithFilters(CSRFFilter()) with GlobalSettings {
 
   /**
    * Bind types such that whenever UUIDGenerator is required, an instance of SimpleUUIDGenerator will be used.

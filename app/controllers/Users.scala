@@ -1,17 +1,18 @@
 package controllers
 
-import play.modules.reactivemongo.{ReactiveMongoPlugin, MongoController}
-import play.modules.reactivemongo.json.collection.JSONCollection
-import reactivemongo.core.commands.Count
-import scala.concurrent.Future
-import reactivemongo.api.{QueryOpts, Cursor}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import org.slf4j.{LoggerFactory, Logger}
 import javax.inject.{Inject, Singleton}
-import play.api.mvc._
+
+import play.api.Logger
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._
+import play.api.mvc._
+import play.modules.reactivemongo.MongoController
+import play.modules.reactivemongo.json.collection.JSONCollection
+import reactivemongo.api.{Cursor, QueryOpts}
+import reactivemongo.core.commands.Count
 import services.UUIDGenerator
 
+import scala.concurrent.Future
 
 /**
  * The Users controllers encapsulates the Rest endpoints and the interaction with the MongoDB, via ReactiveMongo
@@ -21,7 +22,7 @@ import services.UUIDGenerator
 @Singleton
 class Users @Inject() (uuidGenerator: UUIDGenerator) extends Controller with MongoController {
 
-  private final val logger: Logger = LoggerFactory.getLogger(classOf[Users])
+  private final val logger = Logger
 
   /*
    * Get a JSONCollection (a Collection implementation that is designed to work
@@ -36,8 +37,8 @@ class Users @Inject() (uuidGenerator: UUIDGenerator) extends Controller with Mon
   // Using case classes + Json Writes and Reads //
   // ------------------------------------------ //
 
-  import models._
   import models.JsonFormats._
+  import models._
 
   def createUser = Action.async(parse.json) {
     request =>

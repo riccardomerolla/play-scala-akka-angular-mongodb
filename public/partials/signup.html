@@ -1,0 +1,15 @@
+<div>
+    <form name="form" class="form-signup" >
+        <h3 class="form-signup-heading">Sign Up</h3>
+        <input type="email" name="email" class="form-control" ng-model="userform.email" placeholder="Email" ensure-unique="email" required autofocus/>
+        <small class="error" ng-show="form.email.$error.unique">That email is taken, please try another...</small>
+        <input type="password" class="form-control" ng-model="userform.password" placeholder="Password" required/>
+        <textarea class="form-control" ng-model="userform.info" placeholder="About You"/>
+        <label class="checkbox">
+            <input type="checkbox" ng-model="isConfirmed" value="terms-and-conditions"> Terms and Conditions
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" ng-disabled="form.$invalid || !isConfirmed" type="submit" ng-click="signup()">Sign up</button>
+    </form>
+    <div class="alert alert-danger" ng-show="signupError">Something has gone wrong...</div>
+    <div class="alert alert-success" ng-show="signedUp">Congratulations! Your account has been registered successfully.</div>
+</div>

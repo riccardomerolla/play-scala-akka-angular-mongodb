@@ -6,15 +6,16 @@ import actors.{UUIDActor, UserActor}
 import akka.actor.{ActorRef, Props}
 import akka.pattern.ask
 import akka.util.Timeout
-import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.iteratee.{Concurrent, Iteratee}
 import play.api.libs.json.JsValue
 import play.api.mvc._
+import play.filters.csrf.{CSRFAddToken, CSRFCheck, CSRF}
 import play.libs.Akka
 import services.UUIDGenerator
-import controllers.security.Security
+import play.api.Logger
 
+import scala.concurrent.Future
 import scala.concurrent.duration._
 
 /**
@@ -23,9 +24,11 @@ import scala.concurrent.duration._
  * @param uuidGenerator the UUID generator service we wish to receive.
  */
 @Singleton
-class Application @Inject() (uuidGenerator: UUIDGenerator) extends Controller with Security {
+class Application @Inject() (uuidGenerator: UUIDGenerator) extends Controller {
 
-  private final val logger: Logger = LoggerFactory.getLogger(classOf[Application])
+  implicit val app: play.api.Application = play.api.Play.current
+
+  private final val logger = Logger
 
   lazy val CacheExpiration =
     app.configuration.getInt("cache.expiration").getOrElse(60 /*seconds*/ * 2 /* minutes */)
@@ -34,9 +37,12 @@ class Application @Inject() (uuidGenerator: UUIDGenerator) extends Controller wi
 
   lazy val uuidActor : ActorRef = Akka.system.actorOf(Props(new UUIDActor(uuidGenerator)))
 
-  def index = Action {
-    logger.info("Serving index page...")
-    Ok(views.html.index())
+  def index = GetAction { request => {
+      val userSession = request.session.get("csrfToken").map(i => i.split("-")(0)).getOrElse("")
+      logger.info(s"$userSession")
+      logger.info("Serving index page...")
+      Ok(views.html.index())
+    }
   }
 
   def randomUUID = Action.async {
@@ -62,5 +68,22 @@ class Application @Inject() (uuidGenerator: UUIDGenerator) extends Controller wi
     (in, out)
   }
 
+  object PostAction extends ActionBuilder[Request] {
+    def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]) = {
+      // authentication code here
+      block(request)
+    }
+    override def composeAction[A](action: Action[A]) = CSRFCheck(action)
+  }
+
+  object GetAction extends ActionBuilder[Request] {
+    def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]) = {
+      val userSession = CSRF.getToken(request).map(_.value).getOrElse("")
+      logger.info(s"GetAction $userSession")
+      // authentication code here
+      block(request)
+    }
+    override def composeAction[A](action: Action[A]) = CSRFAddToken(action)
+  }
 
 }

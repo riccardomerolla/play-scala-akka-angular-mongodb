@@ -1,6 +1,7 @@
 
 dependencies = [
     'ngRoute',
+    'ngCookies',
     'ui.bootstrap',
     'myApp.filters',
     'myApp.services',
@@ -12,7 +13,7 @@ dependencies = [
 
 app = angular.module('myApp', dependencies)
 
-angular.module('myApp.routeConfig', ['ngRoute'])
+angular.module('myApp.routeConfig', ['ngRoute', 'ngCookies'])
     .config ($routeProvider) ->
         $routeProvider
             .when('/', {
@@ -24,7 +25,33 @@ angular.module('myApp.routeConfig', ['ngRoute'])
             .when('/user/detail/:uuid', {
                 templateUrl: '/assets/partials/detail.html'
             })
+            .when('/signin', {
+                templateUrl: '/assets/partials/signin.html'
+            })
+            .when('/signup', {
+                templateUrl: '/assets/partials/signup.html'
+            })
             .otherwise({redirectTo: '/'})
+
+    .run (@$rootScope, $location, security) ->
+        @$rootScope.$on('$routeChangeStart',
+          (event, next) ->
+            security.isAuthorized()
+                .success(
+                    () =>
+                        @$rootScope.security = {
+                            'isAuthorized': true,
+                            'email': security.email
+                        })
+                .error(
+                    () =>
+                        @$rootScope.security = {
+                            'isAuthorized': false,
+                            'email': ''
+                        }
+                    $location.path('/signin') if (next.requireAuthorization || false)
+                )
+        )
 
 @commonModule = angular.module('myApp.common', [])
 @controllersModule = angular.module('myApp.controllers', [])
