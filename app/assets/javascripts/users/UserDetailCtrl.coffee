@@ -22,7 +22,18 @@ class UserDetailCtrl
                     @$log.error "Unable to get User: #{error}"
                 )
 
-    updateUser: () ->
+    updateUser: () ->deleteUser: (uuid) ->
+        @$log.debug "deleteUser(#{uuid})"
+
+        @UserService.deleteUser(uuid)
+        .then(
+            (data) =>
+                @$log.debug "Promise returned #{angular.toJson(data, true)} User"
+                @getAllUsers()
+        ,
+            (error) =>
+                @$log.error "Unable to delete User: #{error}"
+        )
         @$log.debug "updateUser()"
         @UserService.updateUser(@user)
         .then(
@@ -58,5 +69,16 @@ class UserDetailCtrl
                 @$log.error "Unable to create UUID: #{error}"
             )
 
+    deleteUser: (uuid) ->
+        @$log.debug "deleteUser(#{uuid})"
+
+        @UserService.deleteUser(uuid)
+        .then(
+            (data) =>
+                @$log.debug "Promise returned #{angular.toJson(data, true)} User"
+        ,
+            (error) =>
+                @$log.error "Unable to delete User: #{error}"
+        )
 
 controllersModule.controller('UserDetailCtrl', UserDetailCtrl)
