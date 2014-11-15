@@ -8,7 +8,6 @@ class UserCtrl
         @maxSize = 5
         @bigTotalItems = 0
         @users = []
-        @getAllUsers()
         @pageChanged()
 
     getAllUsers: () ->

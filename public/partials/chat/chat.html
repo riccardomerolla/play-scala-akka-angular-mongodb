@@ -1,0 +1,28 @@
+<div>
+    &NonBreakingSpace;
+    <div class="jumbotron">
+        <p class="pull-right">Firebase chat</p>
+    </div>
+    <pre><div id='messagesDiv'></div></pre>
+    <input type='text' class="form-control" id='nameInput' placeholder='Name'>
+    <input type='text' class="form-control" id='messageInput' placeholder='Message'>
+    <script>
+        var myDataRef = new Firebase('https://rqfn2sxxf6g.firebaseio-demo.com/');
+        $('#messageInput').keypress(function (e) {
+            if (e.keyCode == 13) {
+                var name = $('#nameInput').val();
+                var text = $('#messageInput').val();
+                myDataRef.push({name: name, text: text});
+                $('#messageInput').val('');
+            }
+        });
+        myDataRef.on('child_added', function(snapshot) {
+            var message = snapshot.val();
+            displayChatMessage(message.name, message.text);
+        });
+        function displayChatMessage(name, text) {
+            $('<div/>').text(text).prepend($('<b/>').text(name+': ')).appendTo($('#messagesDiv'));
+            $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+        };
+    </script>
+</div>

@@ -1,0 +1,33 @@
+<div class="col-md-3">
+    &NonBreakingSpace;
+    <div ng-controller="MenuCtrl as mc">
+
+        <accordion close-others="mc.oneAtATime">
+            <accordion-group heading="Menu" is-open="mc.status.isFirstOpen" is-disabled="mc.status.isFirstDisabled">
+                <div>
+                    <input type="checkbox" ng-model="mc.oneAtATime"> Open only one at a time
+                </div>
+            </accordion-group>
+            <accordion-group heading="{{group.title}}" ng-repeat="group in mc.groups">
+                <div ng-repeat="link in group.links">
+                    <a ng-href="{{link.url}}">{{link.content}}</a>
+                </div>
+            </accordion-group>
+            <accordion-group heading="Dynamic Body Content">
+                <p>The body of the accordion group grows to fit the contents</p>
+                <button class="btn btn-default btn-sm" ng-click="mc.addItem()">Add Item</button>
+                <div ng-repeat="item in mc.items">{{item}}</div>
+            </accordion-group>
+            <accordion-group is-open="mc.status.open">
+                <accordion-heading>
+                    I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !mc.status.open}"></i>
+                </accordion-heading>
+                This is just some content to illustrate fancy headings.
+            </accordion-group>
+        </accordion>
+        <p>
+            <button class="btn btn-default btn-sm" ng-click="mc.status.open = !mc.status.open">Toggle last panel</button>
+            <button class="btn btn-default btn-sm" ng-click="mc.status.isFirstDisabled = ! mc.status.isFirstDisabled">Enable / Disable first panel</button>
+        </p>
+    </div>
+</div>
