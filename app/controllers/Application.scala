@@ -6,14 +6,14 @@ import actors.{UUIDActor, UserActor}
 import akka.actor.{ActorRef, Props}
 import akka.pattern.ask
 import akka.util.Timeout
+import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.iteratee.{Concurrent, Iteratee}
 import play.api.libs.json.JsValue
 import play.api.mvc._
-import play.filters.csrf.{CSRFAddToken, CSRFCheck, CSRF}
+import play.filters.csrf.{CSRFAddToken, CSRFCheck}
 import play.libs.Akka
 import services.UUIDGenerator
-import play.api.Logger
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
@@ -78,8 +78,8 @@ class Application @Inject() (uuidGenerator: UUIDGenerator) extends Controller {
 
   object GetAction extends ActionBuilder[Request] {
     def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]) = {
-      val userSession = CSRF.getToken(request).map(_.value).getOrElse("")
-      logger.info(s"GetAction $userSession")
+      //val userSession = CSRF.getToken(request).map(_.value).getOrElse("")
+      //logger.info(s"GetAction $userSession")
       // authentication code here
       block(request)
     }

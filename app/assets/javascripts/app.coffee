@@ -32,8 +32,8 @@ angular.module('myApp.routeConfig', ['ngRoute', 'ngCookies'])
                 templateUrl: '/assets/partials/signup.html'
             })
             .when('/chat', {
-                  templateUrl: '/assets/partials/chat/chat.html'
-              })
+                  templateUrl: '/assets/partials/chat/chat.html', requireAuthorization: true
+            })
             .otherwise({redirectTo: '/'})
 
     .run (@$rootScope, $location, security) ->
